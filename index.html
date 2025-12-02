@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abisek Kamthan R S | Research Scientist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a192f;
+            --text-color: #8892b0;
+            --heading-color: #ccd6f6;
+            --accent-color: #64ffda;
+            --card-bg: #112240;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--heading-color);
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 200px;
+            height: 1px;
+            background-color: #233554;
+            margin-left: 20px;
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .intro {
+            color: var(--accent-color);
+            font-family: monospace;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 4rem;
+            color: var(--heading-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 3rem;
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .bio {
+            max-width: 600px;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        /* Experience Section */
+        .experience-card {
+            margin-bottom: 40px;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 20px;
+        }
+
+        .exp-title {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .exp-company {
+            color: var(--accent-color);
+        }
+
+        .exp-date {
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Publications Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 5px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-size: 2rem;
+        }
+
+        .card-title {
+            color: var(--heading-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .card-journal {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 50px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .social-links a {
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .name { font-size: 2.5rem; }
+            .tagline { font-size: 2rem; }
+            nav { padding: 20px; }
+            section { padding: 50px 20px; }
+            .nav-links { display: none; } /* Simplified for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AK.</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="mailto:abisek971@gmail.com">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="intro">Hi, my name is</div>
+        <h1 class="name">Abisek Kamthan R S.</h1>
+        <h2 class="tagline">I build AI systems that matter.</h2>
+        <p class="bio">
+            Research-oriented Data Scientist specializing in <b>Graph Neural Networks</b>, <b>Large Language Models</b>, and <b>Post-Training</b> workflows. 
+            Currently focused on creating game-changing solutions in healthcare and generative AI.
+            <br><br>
+            Incoming MSc Data Science at University of Glasgow.
+        </p>
+        <div>
+            <a href="mailto:abisek971@gmail.com" class="btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+
+        <div class="experience-card">
+            <h3 class="exp-title">Co-Founder & Technical Specialist <span class="exp-company">@ KatalyzU</span></h3>
+            <span class="exp-date">Jan 2024 - Present | Remote</span>
+            <p>Leading AI-driven data science projects and driving technical innovation. Architecting production-grade inference systems and overseeing full-stack AI integration.</p>
+        </div>
+
+        <div class="experience-card">
+            <h3 class="exp-title">Research Statistician <span class="exp-company">@ SRM College of Nursing</span></h3>
+            <span class="exp-date">June 2024 - July 2025 | Chennai, India</span>
+            <p>Engineered a <b>GNN + LLM pipeline</b> for adverse drug interaction prediction, achieving a 15% accuracy improvement. Conducted advanced statistical analysis leading to 3+ publications.</p>
+        </div>
+
+        <div class="experience-card">
+            <h3 class="exp-title">Student Mentee & Researcher <span class="exp-company">@ IEEE India Council</span></h3>
+            <span class="exp-date">Aug 2024 - Dec 2024 | Remote</span>
+            <p>Curated a Super-Resolved Monkeypox dataset using GANs. Presented findings on "Enhanced Classification" at the IEEE ISPCC 2025 conference.</p>
+        </div>
+        
+        <div class="experience-card">
+            <h3 class="exp-title">AI Intern <span class="exp-company">@ 1stop.ai</span></h3>
+            <span class="exp-date">May 2023 - July 2023 | Chennai, India</span>
+            <p>Developed landmark recognition models using TensorFlow and Keras. Optimized data pipelines using OpenCV and Pandas.</p>
+        </div>
+    </section>
+
+    <section id="research">
+        <h2>Selected Publications</h2>
+        <div class="grid">
+            
+            <a href="https://ieeexplore.ieee.org/document/11132200" target="_blank" class="card">
+                <div class="card-header"><i class="fa-solid fa-file-medical"></i></div>
+                <div class="card-title">GNN – Enhanced Drug Interaction Detection</div>
+                <span class="card-journal">IEEE Xplore (Aug 2025)</span>
+                <p class="card-desc">Integrated Graph Neural Networks with Sentiment Analysis to model drug relationships from FDA data, achieving AUC 0.981.</p>
+            </a>
+
+            <a href="https://ieeexplore.ieee.org/document/11039595" target="_blank" class="card">
+                <div class="card-header"><i class="fa-solid fa-virus"></i></div>
+                <div class="card-title">Super-Resolved Monkeypox Image Dataset</div>
+                <span class="card-journal">IEEE Xplore (Jun 2025)</span>
+                <p class="card-desc">Leveraged GANs (Real-ESRGAN) to generate a high-quality dataset of 3,165 images, enabling robust detection systems.</p>
+            </a>
+
+            <a href="http://www.ijlret.com/Papers/Vol-11-issue-05/7.D2025526.pdf" target="_blank" class="card">
+                <div class="card-header"><i class="fa-solid fa-water"></i></div>
+                <div class="card-title">Hybrid ARIMA-LSTM for Ocean Forecasting</div>
+                <span class="card-journal">IJLRET (May 2025)</span>
+                <p class="card-desc">Developed a hybrid stacked ensemble framework using IoT sensors to predict ocean acidification.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Key Projects</h2>
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-header"><i class="fa-brands fa-python"></i></div>
+                <div class="card-title">Multimodal Emotion Detection</div>
+                <p class="card-desc">Real-time inference pipeline integrating text, audio, and video using Llama 3.2 via Ollama. Implemented post-training adaptation for causal reasoning.</p>
+                <div class="tech-list">
+                    <span>Llama 3.2</span>
+                    <span>PyTorch</span>
+                    <span>Flask</span>
+                    <span>Ollama</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-database"></i></div>
+                <div class="card-title">Twitter NLP Benchmarking</div>
+                <p class="card-desc">Comprehensive sentiment analysis pipeline using RoBERTa and DistilBERT. Included extensive data curation (NER, POS tagging) and SQL integration.</p>
+                <div class="tech-list">
+                    <span>Transformers</span>
+                    <span>SpaCy</span>
+                    <span>SQL</span>
+                    <span>Dash</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-leaf"></i></div>
+                <div class="card-title">Leaf Disease Detection</div>
+                <p class="card-desc">Scalable detection model using PyTorch state-of-the-art architectures. Achieved 96% accuracy with a Flask real-time backend.</p>
+                <div class="tech-list">
+                    <span>PyTorch</span>
+                    <span>Deep Learning</span>
+                    <span>Computer Vision</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>Designed & Built by Abisek Kamthan R S</p>
+        <div class="social-links">
+            <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/abisekkamthan" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:abisek971@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
