@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abisekkamthan R S | AI Research Scientist</title>
+    <title>Abisekkamthan | AI Research Scientist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -11,13 +11,14 @@
     
     <style>
         :root {
-            --bg-dark: #050a14;
-            --bg-card: rgba(16, 33, 62, 0.6);
-            --text-primary: #e6f1ff;
+            --bg-dark: #020c1b;
+            --bg-card: rgba(17, 34, 64, 0.7);
+            --text-primary: #ccd6f6;
             --text-secondary: #8892b0;
             --accent: #64ffda;
-            --accent-glow: rgba(100, 255, 218, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-glow: rgba(100, 255, 218, 0.1);
+            --line-color: rgba(136, 146, 176, 0.2);
+            --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
         * {
@@ -31,12 +32,12 @@
             background-color: var(--bg-dark);
             color: var(--text-primary);
             font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- Animated Background --- */
-        #canvas-container {
+        /* --- Animated Neural Background --- */
+        #canvas-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -46,35 +47,10 @@
             background: radial-gradient(circle at center, #0a192f 0%, #020c1b 100%);
         }
 
-        /* --- Typography & Utilities --- */
-        h1, h2, h3, h4 {
-            color: var(--text-primary);
-        }
+        /* --- Typography & Layout --- */
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .highlight { color: var(--accent); }
         
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .highlight {
-            color: var(--accent);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .section-title::after {
-            content: "";
-            height: 1px;
-            flex-grow: 1;
-            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
-            max-width: 300px;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -82,10 +58,10 @@
         }
 
         section {
-            padding: 100px 0;
-            opacity: 0; /* For scroll animation */
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         section.visible {
@@ -93,123 +69,116 @@
             transform: translateY(0);
         }
 
+        h2.section-title {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            white-space: nowrap;
+        }
+
+        h2.section-title::after {
+            content: "";
+            display: block;
+            width: 300px;
+            height: 1px;
+            background-color: var(--line-color);
+            margin-left: 20px;
+        }
+
+        h2.section-title span {
+            margin-right: 10px;
+            font-size: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+
         /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 3rem;
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            background: rgba(2, 12, 27, 0.85);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 10px 30px -10px rgba(2,12,27,0.7);
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -1px;
+            color: var(--accent);
+            text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 30px;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+        .nav-links a:hover { color: var(--accent); }
 
-        .btn-resume {
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        .btn-resume:hover {
-            background: var(--accent-glow);
-        }
-
-        /* --- Hero Section --- */
+        /* --- Hero --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 0;
         }
 
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-intro {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .glitch-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        .hero-name {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 700;
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 600;
+            color: var(--text-primary);
             line-height: 1.1;
-            margin-bottom: 1rem;
-            color: #ccd6f6;
-            position: relative;
         }
 
-        .hero-subtitle {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        .hero h2 {
+            font-size: clamp(40px, 8vw, 70px);
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
         }
 
-        .hero-desc {
-            max-width: 540px;
-            font-size: 1.1rem;
+        .hero p {
+            max-width: 600px;
             color: var(--text-secondary);
-            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
         }
 
-        .cta-group {
-            display: flex;
-            gap: 1.5rem;
+        /* --- Education Grid --- */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .btn-primary {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 1rem 2rem;
-            font-size: 1rem;
+        .edu-card {
+            background: var(--bg-card);
+            padding: 25px;
             border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
+            border: 1px solid transparent;
+            transition: var(--transition);
         }
 
-        .btn-primary:hover {
-            background: var(--accent-glow);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.1);
+        .edu-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
         }
 
         /* --- Experience Timeline --- */
@@ -224,430 +193,469 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 2px;
             height: 100%;
-            background: var(--glass-border);
+            width: 2px;
+            background: var(--line-color);
         }
 
-        .timeline-item {
+        .job-item {
             position: relative;
-            padding-left: 3rem;
-            margin-bottom: 3rem;
+            padding-left: 30px;
+            margin-bottom: 50px;
         }
 
-        .timeline-dot {
+        .job-item::before {
+            content: '';
             position: absolute;
-            left: -6px;
+            left: -4px;
             top: 5px;
-            width: 14px;
-            height: 14px;
-            background: var(--bg-dark);
-            border: 2px solid var(--accent);
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+            background: var(--accent);
         }
 
-        .exp-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 1.5rem;
-            border-radius: 8px;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-        }
-
-        .exp-card:hover {
-            transform: translateX(10px);
-            border-color: var(--accent);
-        }
-
-        .exp-header h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .exp-header span {
-            color: var(--accent);
-        }
-
-        .exp-date {
-            display: block;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
-        .exp-list {
-            list-style: none;
-        }
-
-        .exp-list li {
+        .job-header h3 { font-size: 1.3rem; color: var(--text-primary); }
+        .job-header a { color: var(--accent); text-decoration: none; }
+        .job-date { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; display: block; }
+        
+        .job-desc li {
             position: relative;
-            padding-left: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            list-style: none;
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
-        .exp-list li::before {
-            content: '▹';
+        .job-desc li::before {
+            content: "▹";
             position: absolute;
             left: 0;
             color: var(--accent);
         }
 
-        /* --- Projects Grid --- */
-        .project-grid {
+        /* --- Projects Grid (MASSIVE) --- */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
         }
 
         .project-card {
             background: var(--bg-card);
-            border-radius: 10px;
             padding: 2rem;
-            border: 1px solid var(--glass-border);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            border-radius: 4px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-            border-color: var(--accent);
+            transform: translateY(-7px);
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
         }
 
-        .folder-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .project-links {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .project-links a:hover {
-            color: var(--accent);
-        }
-
+        .folder-icon { color: var(--accent); font-size: 40px; margin-bottom: 20px; }
+        
         .project-title {
+            color: var(--text-primary);
             font-size: 1.4rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .project-desc {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-top: auto;
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
-        /* --- Publications --- */
-        .pub-item {
+        /* --- Skills & Certs --- */
+        .skills-container {
             display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.02);
-            transition: 0.3s;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
         }
 
-        .pub-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .pub-icon {
-            font-size: 1.5rem;
+        .skill-tag {
+            border: 1px solid var(--accent);
             color: var(--accent);
-            margin-top: 5px;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
         }
 
-        .pub-content h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
         }
 
-        .pub-content p {
+        .cert-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 4px;
             font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .pub-meta {
-            font-size: 0.8rem;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 2px 8px;
-            border-radius: 12px;
-            display: inline-block;
-        }
-
-        /* --- Contact --- */
-        .contact-section {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 100px 0;
-        }
-
-        .social-icons {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            font-size: 1.5rem;
+            align-items: center;
+            gap: 10px;
         }
 
-        .social-icons a {
+        .cert-item i { color: var(--accent); }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px;
             color: var(--text-secondary);
-            transition: 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        /* --- Glitch Effect Animation --- */
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px,0) skew(0deg); }
-            4%, 60% { transform: translate(-2px,0) skew(0deg); }
-            62% { transform: translate(0,0) skew(5deg); }
+            font-size: 0.8rem;
+            margin-top: 50px;
         }
 
         @media (max-width: 768px) {
-            .hero-name { font-size: 3rem; }
-            .section-title { font-size: 2rem; }
-            .timeline::before { left: -10px; }
-            .timeline-item { padding-left: 1.5rem; }
             .nav-links { display: none; }
+            .hero h1 { font-size: 50px; }
+            .hero h2 { font-size: 40px; }
+            .timeline::before { left: -10px; }
+            .job-item { padding-left: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas-container"></canvas>
+    <canvas id="canvas-bg"></canvas>
 
-    <nav id="navbar">
-        <div class="logo mono highlight">&lt;AK /&gt;</div>
+    <nav>
+        <a href="#" class="logo mono">&lt;AK/&gt;</a>
         <ul class="nav-links mono">
             <li><a href="#about"><span class="highlight">01.</span> About</a></li>
             <li><a href="#experience"><span class="highlight">02.</span> Experience</a></li>
-            <li><a href="#projects"><span class="highlight">03.</span> Work</a></li>
-            <li><a href="#publications"><span class="highlight">04.</span> Research</a></li>
+            <li><a href="#work"><span class="highlight">03.</span> Work</a></li>
+            <li><a href="#research"><span class="highlight">04.</span> Research</a></li>
+            <li><a href="#skills"><span class="highlight">05.</span> Skills</a></li>
         </ul>
-        <a href="mailto:abisek971@gmail.com" class="btn-resume mono">Contact Me</a>
+        <a href="mailto:abisek971@gmail.com" style="border: 1px solid var(--accent); padding: 0.5rem 1rem; border-radius: 4px; color: var(--accent); text-decoration: none;" class="mono">Resume</a>
     </nav>
 
-    <main class="container">
+    <div class="container">
 
         <section id="about" class="hero visible">
-            <div class="hero-content">
-                <p class="hero-intro mono">Hi, my name is</p>
-                <h1 class="hero-name">Abisekkamthan.</h1>
-                <h2 class="hero-subtitle">I build intelligence into systems.</h2>
-                <p class="hero-desc">
-                    Research-oriented Data Scientist specializing in <span class="highlight">Generative AI</span>, <span class="highlight">GNNs</span>, and <span class="highlight">Foundation Models</span>. 
-                    I transform complex research into production-grade solutions that solve real-world problems.
-                </p>
-                <div class="cta-group">
-                    <a href="#projects" class="btn-primary mono">Check out my work</a>
-                    <a href="#contact" class="btn-primary mono">Get in touch</a>
+            <p class="mono highlight">Hi, my name is</p>
+            <h1>Abisekkamthan.</h1>
+            <h2>I build intelligence into systems.</h2>
+            <p>
+                I am a research-oriented Data Scientist specializing in Big Data Analytics, GNNs, and Generative AI. 
+                With a CGPA of 9.68/10, I bridge the gap between academic research and production-grade AI systems, 
+                focusing on healthcare safety and multimodal applications.
+            </p>
+            <a href="#work" style="padding: 1.25rem 1.75rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-decoration: none; font-family: monospace; margin-top: 50px; display: inline-block;">Check out my work!</a>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title"><span>01.</span> Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <h3 class="highlight">University of Glasgow</h3>
+                    <p class="mono">MSc Data Science</p>
+                    <p style="font-size: 0.9rem;">Sep 2025 (Incoming) | Glasgow, UK</p>
+                </div>
+                <div class="edu-card">
+                    <h3 class="highlight">SRM Institute of Science & Technology</h3>
+                    <p class="mono">B.Tech CSE (Big Data Analytics)</p>
+                    <p style="font-size: 0.9rem;">2021 - 2025 | CGPA: 9.68/10</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px;">Performance Based Scholarship (Rank 2)</p>
+                </div>
+                <div class="edu-card">
+                    <h3 class="highlight">Efrei Paris</h3>
+                    <p class="mono">Student Exchange Program</p>
+                    <p style="font-size: 0.9rem;">Sep 2024 - Jan 2025 | Paris, France</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px;">Focus: Data Science & MATLAB Modelling</p>
                 </div>
             </div>
         </section>
 
         <section id="experience">
-            <h2 class="section-title"><span class="highlight mono">02.</span> Experience</h2>
-            
+            <h2 class="section-title"><span>02.</span> Where I've Worked</h2>
             <div class="timeline">
                 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card">
-                        <div class="exp-header">
-                            <h3>Co-Founder & Technical Specialist <span class="highlight">@ KatalyzU</span></h3>
-                            <span class="exp-date mono">Jan 2024 - Present | Remote</span>
-                        </div>
-                        <ul class="exp-list">
-                            <li>Leading AI-driven data science projects and driving technical innovation.</li>
-                            <li>Architecting production-grade inference systems and overseeing full-stack AI integration.</li>
-                        </ul>
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>Co-Founder & Tech Lead <span class="highlight">@ KatalyzU</span></h3>
+                        <span class="job-date mono">Jan 2024 - Present | Remote</span>
                     </div>
+                    <ul class="job-desc">
+                        <li>Leading AI-driven data science projects and driving technical innovation.</li>
+                        <li>Architecting production-grade inference systems and overseeing full-stack AI integration.</li>
+                        <li>Delivering 12+ AI initiatives including full-stack tools and dashboards.</li>
+                    </ul>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card">
-                        <div class="exp-header">
-                            <h3>Research Statistician <span class="highlight">@ SRM Institute</span></h3>
-                            <span class="exp-date mono">Jun 2024 - July 2025 | Chennai</span>
-                        </div>
-                        <ul class="exp-list">
-                            <li>Engineered a <b>GNN + LLM pipeline</b> for adverse drug interaction prediction (15% accuracy boost).</li>
-                            <li>Conducted advanced statistical analysis leading to 3+ high-impact publications.</li>
-                        </ul>
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>Research Statistician <span class="highlight">@ SRM College of Nursing</span></h3>
+                        <span class="job-date mono">Jun 2024 - July 2025 | Chennai</span>
                     </div>
+                    <ul class="job-desc">
+                        <li>Engineered a <b>GNN + LLM pipeline</b> for adverse drug interaction prediction (15% accuracy boost).</li>
+                        <li>Conducted advanced statistical analysis leading to 3+ high-impact publications.</li>
+                        <li>Optimized data ingestion pipelines reducing turnaround from 5.1 hours to 3.0 hours.</li>
+                    </ul>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card">
-                        <div class="exp-header">
-                            <h3>Researcher Mentee <span class="highlight">@ IEEE India Council</span></h3>
-                            <span class="exp-date mono">Aug 2024 - Dec 2024 | Remote</span>
-                        </div>
-                        <ul class="exp-list">
-                            <li>Curated a Super-Resolved Monkeypox dataset using GANs.</li>
-                            <li>Presented findings at the IEEE ISPCC 2025 conference.</li>
-                        </ul>
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>Student Researcher <span class="highlight">@ IEEE India Council</span></h3>
+                        <span class="job-date mono">Aug 2024 - Dec 2024 | Remote</span>
                     </div>
+                    <ul class="job-desc">
+                        <li>Curated a Super-Resolved Monkeypox dataset (3,165 samples) using GANs.</li>
+                        <li>Presented "Enhanced Classification" findings at IEEE ISPCC 2025.</li>
+                        <li>Benchmarked multiple PyTorch architectures for medical imaging.</li>
+                    </ul>
+                </div>
+
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>Digital Marketing Intern <span class="highlight">@ IntrnForte</span></h3>
+                        <span class="job-date mono">July 2023 - Oct 2023 | Chennai</span>
+                    </div>
+                    <ul class="job-desc">
+                        <li>Applied coding/programming background to excel in technical digital marketing.</li>
+                        <li>Explored intersection of ML/AI and marketing analytics.</li>
+                    </ul>
+                </div>
+
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>AI Intern <span class="highlight">@ 1stop.ai</span></h3>
+                        <span class="job-date mono">May 2023 - July 2023 | Chennai</span>
+                    </div>
+                    <ul class="job-desc">
+                        <li>Led development of Deep Learning classifiers (Pet Detector, Landmark Recognition) achieving 90%+ accuracy.</li>
+                        <li>Implemented data augmentation using OpenCV and Keras.</li>
+                    </ul>
+                </div>
+
+                <div class="job-item">
+                    <div class="job-header">
+                        <h3>Data Science Intern <span class="highlight">@ Coincent.ai</span></h3>
+                        <span class="job-date mono">Oct 2022 - Dec 2022 | Remote</span>
+                    </div>
+                    <ul class="job-desc">
+                        <li>Developed sentiment analysis models using SVM and Naive Bayes.</li>
+                        <li>Contributed to chatbot development and text classification projects.</li>
+                    </ul>
                 </div>
 
             </div>
         </section>
 
-        <section id="projects">
-            <h2 class="section-title"><span class="highlight mono">03.</span> Key Projects</h2>
-            
-            <div class="project-grid">
+        <section id="work">
+            <h2 class="section-title"><span>03.</span> Technical Projects</h2>
+            <div class="projects-grid">
                 
                 <div class="project-card">
-                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
-                    <div class="project-links">
-                        <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                    <h3 class="project-title">Multimodal Emotion AI</h3>
-                    <p class="project-desc">
-                        A real-time inference pipeline integrating text, audio, and video using Llama 3.2. Implemented post-training adaptation for causal reasoning.
-                    </p>
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">Multimodal Emotion AI</h3>
+                        <div class="project-desc">
+                            Real-time pipeline integrating text, audio, and video using Llama 3.2. Implemented post-training adaptation for causal reasoning and vocal feature extraction.
+                        </div>
+                    </header>
                     <div class="project-tech mono">
-                        <span>Llama 3.2</span>
-                        <span>PyTorch</span>
-                        <span>Flask</span>
-                        <span>Ollama</span>
+                        <span>Llama 3.2</span><span>PyTorch</span><span>Flask</span><span>Ollama</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
-                    <div class="project-links">
-                        <a href="#" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
-                    <h3 class="project-title">NLP Benchmarking Pipeline</h3>
-                    <p class="project-desc">
-                        Comprehensive sentiment analysis framework using RoBERTa and DistilBERT. Features automated data curation, NER, and SQL integration.
-                    </p>
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">Enhancing Drug Safety (GNN)</h3>
+                        <div class="project-desc">
+                            System identifying drug interactions using Graph Neural Networks and LLMs. Leveraged domain-specific embeddings from NCBI/FDA data.
+                        </div>
+                    </header>
                     <div class="project-tech mono">
-                        <span>Transformers</span>
-                        <span>SpaCy</span>
-                        <span>SQL</span>
-                        <span>Dash</span>
+                        <span>GNN</span><span>LLM</span><span>Embeddings</span><span>Python</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
-                    <div class="project-links">
-                        <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                    <h3 class="project-title">Leaf Disease Detection</h3>
-                    <p class="project-desc">
-                        Scalable deep learning model achieving 96% accuracy on agricultural datasets. Deployed via a lightweight Flask backend.
-                    </p>
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">NLP Benchmarking Pipeline</h3>
+                        <div class="project-desc">
+                            Sentiment analysis pipeline using RoBERTa and DistilBERT. Features automated NER, POS tagging, SQL storage, and Dash visualization.
+                        </div>
+                    </header>
                     <div class="project-tech mono">
-                        <span>PyTorch</span>
-                        <span>CV</span>
-                        <span>Deep Learning</span>
+                        <span>Transformers</span><span>SpaCy</span><span>SQL</span><span>Dash</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">Leaf Disease Detection</h3>
+                        <div class="project-desc">
+                            Web-based detection using PyTorch neural networks. Achieved 96% accuracy on agricultural datasets with Flask backend.
+                        </div>
+                    </header>
+                    <div class="project-tech mono">
+                        <span>PyTorch</span><span>ResNet</span><span>Computer Vision</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">SpaceX Falcon 9 Prediction</h3>
+                        <div class="project-desc">
+                            Predicting first-stage landing success (95% accuracy) using Decision Trees. Included web scraping and dashboard creation.
+                        </div>
+                    </header>
+                    <div class="project-tech mono">
+                        <span>Scikit-learn</span><span>Pandas</span><span>Data Science</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">Crack Detection Model</h3>
+                        <div class="project-desc">
+                            Deep Learning model (VGG16, ResNet50) for identifying structural cracks on buildings. Optimized with PyTorch for speed.
+                        </div>
+                    </header>
+                    <div class="project-tech mono">
+                        <span>Deep Learning</span><span>Keras</span><span>PyTorch</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">PCA on Global Pollution</h3>
+                        <div class="project-desc">
+                            Principal Component Analysis on large-scale air pollution datasets to extract patterns and reduce dimensionality.
+                        </div>
+                    </header>
+                    <div class="project-tech mono">
+                        <span>PCA</span><span>Unsupervised Learning</span><span>Python</span>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <header>
+                        <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                        <h3 class="project-title">Langton's Ant Encoding</h3>
+                        <div class="project-desc">
+                            Novel data encoding algorithms inspired by Langton's Ant patterns to enhance complexity and security.
+                        </div>
+                    </header>
+                    <div class="project-tech mono">
+                        <span>Algorithms</span><span>Research</span><span>Encoding</span>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section id="publications">
-            <h2 class="section-title"><span class="highlight mono">04.</span> Research Publications</h2>
+        <section id="research">
+            <h2 class="section-title"><span>04.</span> Selected Publications</h2>
             
-            <div class="pub-list">
-                <a href="https://ieeexplore.ieee.org/document/11132200" style="text-decoration:none; color:inherit;">
-                    <div class="pub-item">
-                        <div class="pub-icon"><i class="fa-solid fa-file-waveform"></i></div>
-                        <div class="pub-content">
-                            <h4>GNN – Enhanced Drug Interaction Detection</h4>
-                            <p>Integrated Graph Neural Networks with Sentiment Analysis to model drug relationships from FDA data (AUC 0.981).</p>
-                            <span class="pub-meta mono">IEEE Xplore '25</span>
-                        </div>
-                    </div>
-                </a>
+            <div style="background: var(--bg-card); padding: 30px; border-radius: 4px; border-left: 3px solid var(--accent); margin-bottom: 20px;">
+                <h3 class="highlight">GNN – Enhanced Drug Interaction Detection</h3>
+                <p class="mono" style="font-size: 0.9rem; margin: 5px 0;">IEEE Xplore | Aug 2025</p>
+                <p>Integrated Graph Neural Networks with Sentiment Analysis to model drug relationships from FDA data (AUC 0.981).</p>
+            </div>
 
-                <a href="https://ieeexplore.ieee.org/document/11039595" style="text-decoration:none; color:inherit;">
-                    <div class="pub-item">
-                        <div class="pub-icon"><i class="fa-solid fa-microscope"></i></div>
-                        <div class="pub-content">
-                            <h4>Super-Resolved Monkeypox Image Dataset</h4>
-                            <p>Leveraged GANs (Real-ESRGAN) to generate a high-quality dataset of 3,165 images, enabling robust detection.</p>
-                            <span class="pub-meta mono">IEEE ISPCC '25</span>
-                        </div>
-                    </div>
-                </a>
+            <div style="background: var(--bg-card); padding: 30px; border-radius: 4px; border-left: 3px solid var(--accent); margin-bottom: 20px;">
+                <h3 class="highlight">Super-Resolved Monkeypox Image Dataset</h3>
+                <p class="mono" style="font-size: 0.9rem; margin: 5px 0;">IEEE Xplore (ISPCC) | Jun 2025</p>
+                <p>Leveraged GANs (Real-ESRGAN) to generate a high-quality dataset of 3,165 images, enabling robust detection systems.</p>
+            </div>
 
-                <div class="pub-item">
-                    <div class="pub-icon"><i class="fa-solid fa-water"></i></div>
-                    <div class="pub-content">
-                        <h4>Hybrid ARIMA-LSTM for Ocean Forecasting</h4>
-                        <p>Developed a hybrid stacked ensemble framework using IoT sensors to predict ocean acidification.</p>
-                        <span class="pub-meta mono">IJLRET '25</span>
-                    </div>
-                </div>
+            <div style="background: var(--bg-card); padding: 30px; border-radius: 4px; border-left: 3px solid var(--accent); margin-bottom: 20px;">
+                <h3 class="highlight">Hybrid ARIMA-LSTM for Ocean Forecasting</h3>
+                <p class="mono" style="font-size: 0.9rem; margin: 5px 0;">IJLRET | May 2025</p>
+                <p>Developed a hybrid stacked ensemble framework using IoT sensors to predict ocean acidification.</p>
+            </div>
+            
+            <div style="background: var(--bg-card); padding: 30px; border-radius: 4px; border-left: 3px solid var(--accent); margin-bottom: 20px;">
+                <h3 class="highlight">Langton’s Ant–Driven Secure Encoding</h3>
+                <p class="mono" style="font-size: 0.9rem; margin: 5px 0;">IJTES | Oct 2024</p>
+                <p>Designed a novel encoding system using Langton's Ant dynamics to enhance message security.</p>
             </div>
         </section>
 
-        <section id="contact" class="contact-section">
-            <p class="mono highlight">05. What's Next?</p>
-            <h2 style="font-size: 3rem; margin-bottom: 1rem;">Get In Touch</h2>
-            <p style="max-width: 500px; margin: 0 auto 2rem auto; color: var(--text-secondary);">
-                I am currently open to new research opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+        <section id="skills">
+            <h2 class="section-title"><span>05.</span> Skills & Certifications</h2>
+            
+            <h3 style="color: var(--text-primary); margin-bottom: 20px;">Technical Stack</h3>
+            <div class="skills-container mono">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">TensorFlow</span>
+                <span class="skill-tag">Keras</span>
+                <span class="skill-tag">GNNs</span>
+                <span class="skill-tag">LLMs (Llama, GPT)</span>
+                <span class="skill-tag">Generative AI</span>
+                <span class="skill-tag">OpenCV</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Pandas/NumPy</span>
+                <span class="skill-tag">Tableau</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Linux</span>
+            </div>
+
+            <h3 style="color: var(--text-primary); margin-bottom: 20px; margin-top: 40px;">Certifications</h3>
+            <div class="cert-list">
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> Generative AI with LLMs (DeepLearning.AI)</div>
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> IBM AI Engineering Professional</div>
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> IBM Data Science Professional</div>
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> AWS Machine Learning Foundations</div>
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> Microsoft Azure AI Fundamentals</div>
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> GenAI Basics - How LLMs Work</div>
+            </div>
+        </section>
+
+        <section id="contact" style="text-align: center; padding: 100px 0;">
+            <p class="mono highlight">06. What's Next?</p>
+            <h1 style="font-size: 3rem; margin-bottom: 20px; color: var(--text-primary);">Get In Touch</h1>
+            <p style="max-width: 500px; margin: 0 auto 50px auto; color: var(--text-secondary);">
+                I am currently looking for Research Scientist roles. Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
-            <a href="mailto:abisek971@gmail.com" class="btn-primary mono" style="padding: 1.2rem 3rem;">Say Hello</a>
-
-            <div class="social-icons">
-                <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/abisekkamthan" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="mailto:abisek971@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <div style="font-size: 2rem; margin-bottom: 30px;">
+                <a href="https://linkedin.com/in/abisekkamthan" style="color: var(--text-secondary); margin: 0 10px;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Codesaur1618" style="color: var(--text-secondary); margin: 0 10px;"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:abisek971@gmail.com" style="color: var(--text-secondary); margin: 0 10px;"><i class="fa-solid fa-envelope"></i></a>
             </div>
+            <a href="mailto:abisek971@gmail.com" style="padding: 1.25rem 2rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-decoration: none; font-family: monospace;">Say Hello</a>
         </section>
 
-    </main>
-    
-    <footer style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.8rem;" class="mono">
-        <p>Designed & Built by Abisekkamthan</p>
-    </footer>
+        <footer class="mono">
+            <p>Designed & Built by Abisekkamthan</p>
+        </footer>
+
+    </div>
 
     <script>
-        // Scroll Animation Observer
+        // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -661,10 +669,10 @@
         });
 
         // Neural Network Background Animation
-        const canvas = document.getElementById('canvas-container');
+        const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        let width, height;
         let particles = [];
+        let width, height;
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -679,16 +687,14 @@
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2 + 1;
             }
-
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
+                if(this.x < 0 || this.x > width) this.vx *= -1;
+                if(this.y < 0 || this.y > height) this.vy *= -1;
             }
-
             draw() {
-                ctx.fillStyle = 'rgba(100, 255, 218, 0.3)';
+                ctx.fillStyle = 'rgba(100, 255, 218, 0.4)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -697,41 +703,35 @@
 
         function initParticles() {
             particles = [];
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle());
-            }
+            let count = window.innerWidth > 768 ? 60 : 30; // Fewer particles on mobile
+            for(let i=0; i<count; i++) particles.push(new Particle());
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
-            // Draw connections
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(100, 255, 218, ${0.1 - distance/1500})`;
+            for(let i=0; i<particles.length; i++) {
+                let p = particles[i];
+                p.update();
+                p.draw();
+                for(let j=i+1; j<particles.length; j++) {
+                    let p2 = particles[j];
+                    let dx = p.x - p2.x;
+                    let dy = p.y - p2.y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 120) {
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${0.15 - dist/800})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
                     }
                 }
             }
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', resize);
+        window.addEventListener('resize', () => { resize(); initParticles(); });
         resize();
         initParticles();
         animate();
