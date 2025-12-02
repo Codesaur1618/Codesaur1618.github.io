@@ -3,391 +3,738 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abisek Kamthan R S | Research Scientist</title>
+    <title>Abisekkamthan R S | AI Research Scientist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #0a192f;
-            --text-color: #8892b0;
-            --heading-color: #ccd6f6;
-            --accent-color: #64ffda;
-            --card-bg: #112240;
-            --transition: all 0.3s ease-in-out;
+            --bg-dark: #050a14;
+            --bg-card: rgba(16, 33, 62, 0.6);
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --accent-glow: rgba(100, 255, 218, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
-        a {
-            text-decoration: none;
-            color: var(--accent-color);
-            transition: var(--transition);
+        /* --- Animated Background --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a192f 0%, #020c1b 100%);
         }
 
-        a:hover {
-            opacity: 0.8;
+        /* --- Typography & Utilities --- */
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Navigation */
+        .highlight {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            max-width: 300px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 100px 0;
+            opacity: 0; /* For scroll animation */
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Navigation --- */
         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            position: fixed;
-            width: 100%;
-            background-color: rgba(10, 25, 47, 0.95);
+            z-index: 100;
             backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
         }
 
         .logo {
-            color: var(--accent-color);
-            font-weight: 700;
             font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 2rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--heading-color);
+            color: var(--text-secondary);
+            text-decoration: none;
             font-size: 0.9rem;
+            transition: 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent-color);
+            color: var(--accent);
         }
 
-        /* Sections */
-        section {
-            padding: 100px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .btn-resume {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: 0.3s;
         }
 
-        h2 {
-            color: var(--heading-color);
-            font-size: 2rem;
-            margin-bottom: 40px;
+        .btn-resume:hover {
+            background: var(--accent-glow);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
         }
 
-        h2::after {
-            content: "";
-            display: block;
-            width: 200px;
-            height: 1px;
-            background-color: #233554;
-            margin-left: 20px;
+        .hero-content {
+            max-width: 800px;
         }
 
-        /* Hero Section */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .intro {
-            color: var(--accent-color);
-            font-family: monospace;
-            margin-bottom: 20px;
-        }
-
-        .name {
-            font-size: 4rem;
-            color: var(--heading-color);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .tagline {
-            font-size: 3rem;
-            color: var(--text-color);
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        .bio {
-            max-width: 600px;
-            margin-bottom: 50px;
+        .hero-intro {
+            color: var(--accent);
+            margin-bottom: 1rem;
             font-size: 1.1rem;
         }
 
-        .btn {
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-family: monospace;
-        }
-
-        .btn:hover {
-            background-color: rgba(100, 255, 218, 0.1);
-        }
-
-        /* Experience Section */
-        .experience-card {
-            margin-bottom: 40px;
-            border-left: 2px solid var(--accent-color);
-            padding-left: 20px;
-        }
-
-        .exp-title {
-            color: var(--heading-color);
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .exp-company {
-            color: var(--accent-color);
-        }
-
-        .exp-date {
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* Publications Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 5px;
-            transition: var(--transition);
+        .glitch-wrapper {
+            display: inline-block;
             position: relative;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        .hero-name {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: #ccd6f6;
+            position: relative;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-            font-size: 2rem;
-        }
-
-        .card-title {
-            color: var(--heading-color);
-            font-size: 1.2rem;
+        .hero-subtitle {
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 600;
-            margin-bottom: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
         }
-        
-        .card-journal {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
+
+        .hero-desc {
+            max-width: 540px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.1);
+        }
+
+        /* --- Experience Timeline --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--glass-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--bg-dark);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .exp-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .exp-card:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
+        }
+
+        .exp-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-header span {
+            color: var(--accent);
+        }
+
+        .exp-date {
             display: block;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
         }
 
-        .card-desc {
-            font-size: 0.9rem;
+        .exp-list {
+            list-style: none;
         }
 
-        .tech-list {
+        .exp-list li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .exp-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* --- Projects Grid --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+            border-color: var(--accent);
+        }
+
+        .folder-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .project-links a:hover {
+            color: var(--accent);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 20px;
-            font-family: monospace;
             font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
-        /* Footer */
-        footer {
+        /* --- Publications --- */
+        .pub-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: 0.3s;
+        }
+
+        .pub-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .pub-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        .pub-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-meta {
+            font-size: 0.8rem;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* --- Contact --- */
+        .contact-section {
             text-align: center;
-            padding: 20px;
-            font-family: monospace;
-            font-size: 0.8rem;
-            margin-top: 50px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 100px 0;
         }
 
-        .social-links {
-            margin-top: 20px;
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
             font-size: 1.5rem;
         }
-        
-        .social-links a {
-            margin: 0 10px;
+
+        .social-icons a {
+            color: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* --- Glitch Effect Animation --- */
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px,0) skew(0deg); }
+            4%, 60% { transform: translate(-2px,0) skew(0deg); }
+            62% { transform: translate(0,0) skew(5deg); }
         }
 
         @media (max-width: 768px) {
-            .name { font-size: 2.5rem; }
-            .tagline { font-size: 2rem; }
-            nav { padding: 20px; }
-            section { padding: 50px 20px; }
-            .nav-links { display: none; } /* Simplified for mobile */
+            .hero-name { font-size: 3rem; }
+            .section-title { font-size: 2rem; }
+            .timeline::before { left: -10px; }
+            .timeline-item { padding-left: 1.5rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">AK.</div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#research">Research</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="mailto:abisek971@gmail.com">Contact</a></li>
+    <canvas id="canvas-container"></canvas>
+
+    <nav id="navbar">
+        <div class="logo mono highlight">&lt;AK /&gt;</div>
+        <ul class="nav-links mono">
+            <li><a href="#about"><span class="highlight">01.</span> About</a></li>
+            <li><a href="#experience"><span class="highlight">02.</span> Experience</a></li>
+            <li><a href="#projects"><span class="highlight">03.</span> Work</a></li>
+            <li><a href="#publications"><span class="highlight">04.</span> Research</a></li>
         </ul>
+        <a href="mailto:abisek971@gmail.com" class="btn-resume mono">Contact Me</a>
     </nav>
 
-    <section id="hero">
-        <div class="intro">Hi, my name is</div>
-        <h1 class="name">Abisek Kamthan R S.</h1>
-        <h2 class="tagline">I build AI systems that matter.</h2>
-        <p class="bio">
-            Research-oriented Data Scientist specializing in <b>Graph Neural Networks</b>, <b>Large Language Models</b>, and <b>Post-Training</b> workflows. 
-            Currently focused on creating game-changing solutions in healthcare and generative AI.
-            <br><br>
-            Incoming MSc Data Science at University of Glasgow.
-        </p>
-        <div>
-            <a href="mailto:abisek971@gmail.com" class="btn">Get In Touch</a>
-        </div>
-    </section>
+    <main class="container">
 
-    <section id="experience">
-        <h2>Experience</h2>
+        <section id="about" class="hero visible">
+            <div class="hero-content">
+                <p class="hero-intro mono">Hi, my name is</p>
+                <h1 class="hero-name">Abisekkamthan.</h1>
+                <h2 class="hero-subtitle">I build intelligence into systems.</h2>
+                <p class="hero-desc">
+                    Research-oriented Data Scientist specializing in <span class="highlight">Generative AI</span>, <span class="highlight">GNNs</span>, and <span class="highlight">Foundation Models</span>. 
+                    I transform complex research into production-grade solutions that solve real-world problems.
+                </p>
+                <div class="cta-group">
+                    <a href="#projects" class="btn-primary mono">Check out my work</a>
+                    <a href="#contact" class="btn-primary mono">Get in touch</a>
+                </div>
+            </div>
+        </section>
 
-        <div class="experience-card">
-            <h3 class="exp-title">Co-Founder & Technical Specialist <span class="exp-company">@ KatalyzU</span></h3>
-            <span class="exp-date">Jan 2024 - Present | Remote</span>
-            <p>Leading AI-driven data science projects and driving technical innovation. Architecting production-grade inference systems and overseeing full-stack AI integration.</p>
-        </div>
-
-        <div class="experience-card">
-            <h3 class="exp-title">Research Statistician <span class="exp-company">@ SRM College of Nursing</span></h3>
-            <span class="exp-date">June 2024 - July 2025 | Chennai, India</span>
-            <p>Engineered a <b>GNN + LLM pipeline</b> for adverse drug interaction prediction, achieving a 15% accuracy improvement. Conducted advanced statistical analysis leading to 3+ publications.</p>
-        </div>
-
-        <div class="experience-card">
-            <h3 class="exp-title">Student Mentee & Researcher <span class="exp-company">@ IEEE India Council</span></h3>
-            <span class="exp-date">Aug 2024 - Dec 2024 | Remote</span>
-            <p>Curated a Super-Resolved Monkeypox dataset using GANs. Presented findings on "Enhanced Classification" at the IEEE ISPCC 2025 conference.</p>
-        </div>
-        
-        <div class="experience-card">
-            <h3 class="exp-title">AI Intern <span class="exp-company">@ 1stop.ai</span></h3>
-            <span class="exp-date">May 2023 - July 2023 | Chennai, India</span>
-            <p>Developed landmark recognition models using TensorFlow and Keras. Optimized data pipelines using OpenCV and Pandas.</p>
-        </div>
-    </section>
-
-    <section id="research">
-        <h2>Selected Publications</h2>
-        <div class="grid">
+        <section id="experience">
+            <h2 class="section-title"><span class="highlight mono">02.</span> Experience</h2>
             
-            <a href="https://ieeexplore.ieee.org/document/11132200" target="_blank" class="card">
-                <div class="card-header"><i class="fa-solid fa-file-medical"></i></div>
-                <div class="card-title">GNN – Enhanced Drug Interaction Detection</div>
-                <span class="card-journal">IEEE Xplore (Aug 2025)</span>
-                <p class="card-desc">Integrated Graph Neural Networks with Sentiment Analysis to model drug relationships from FDA data, achieving AUC 0.981.</p>
-            </a>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <h3>Co-Founder & Technical Specialist <span class="highlight">@ KatalyzU</span></h3>
+                            <span class="exp-date mono">Jan 2024 - Present | Remote</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Leading AI-driven data science projects and driving technical innovation.</li>
+                            <li>Architecting production-grade inference systems and overseeing full-stack AI integration.</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <a href="https://ieeexplore.ieee.org/document/11039595" target="_blank" class="card">
-                <div class="card-header"><i class="fa-solid fa-virus"></i></div>
-                <div class="card-title">Super-Resolved Monkeypox Image Dataset</div>
-                <span class="card-journal">IEEE Xplore (Jun 2025)</span>
-                <p class="card-desc">Leveraged GANs (Real-ESRGAN) to generate a high-quality dataset of 3,165 images, enabling robust detection systems.</p>
-            </a>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <h3>Research Statistician <span class="highlight">@ SRM Institute</span></h3>
+                            <span class="exp-date mono">Jun 2024 - July 2025 | Chennai</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Engineered a <b>GNN + LLM pipeline</b> for adverse drug interaction prediction (15% accuracy boost).</li>
+                            <li>Conducted advanced statistical analysis leading to 3+ high-impact publications.</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <a href="http://www.ijlret.com/Papers/Vol-11-issue-05/7.D2025526.pdf" target="_blank" class="card">
-                <div class="card-header"><i class="fa-solid fa-water"></i></div>
-                <div class="card-title">Hybrid ARIMA-LSTM for Ocean Forecasting</div>
-                <span class="card-journal">IJLRET (May 2025)</span>
-                <p class="card-desc">Developed a hybrid stacked ensemble framework using IoT sensors to predict ocean acidification.</p>
-            </a>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <h3>Researcher Mentee <span class="highlight">@ IEEE India Council</span></h3>
+                            <span class="exp-date mono">Aug 2024 - Dec 2024 | Remote</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Curated a Super-Resolved Monkeypox dataset using GANs.</li>
+                            <li>Presented findings at the IEEE ISPCC 2025 conference.</li>
+                        </ul>
+                    </div>
+                </div>
 
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <section id="projects">
-        <h2>Key Projects</h2>
-        <div class="grid">
+        <section id="projects">
+            <h2 class="section-title"><span class="highlight mono">03.</span> Key Projects</h2>
+            
+            <div class="project-grid">
+                
+                <div class="project-card">
+                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                    <div class="project-links">
+                        <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                    <h3 class="project-title">Multimodal Emotion AI</h3>
+                    <p class="project-desc">
+                        A real-time inference pipeline integrating text, audio, and video using Llama 3.2. Implemented post-training adaptation for causal reasoning.
+                    </p>
+                    <div class="project-tech mono">
+                        <span>Llama 3.2</span>
+                        <span>PyTorch</span>
+                        <span>Flask</span>
+                        <span>Ollama</span>
+                    </div>
+                </div>
 
-            <div class="card">
-                <div class="card-header"><i class="fa-brands fa-python"></i></div>
-                <div class="card-title">Multimodal Emotion Detection</div>
-                <p class="card-desc">Real-time inference pipeline integrating text, audio, and video using Llama 3.2 via Ollama. Implemented post-training adaptation for causal reasoning.</p>
-                <div class="tech-list">
-                    <span>Llama 3.2</span>
-                    <span>PyTorch</span>
-                    <span>Flask</span>
-                    <span>Ollama</span>
+                <div class="project-card">
+                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                    <h3 class="project-title">NLP Benchmarking Pipeline</h3>
+                    <p class="project-desc">
+                        Comprehensive sentiment analysis framework using RoBERTa and DistilBERT. Features automated data curation, NER, and SQL integration.
+                    </p>
+                    <div class="project-tech mono">
+                        <span>Transformers</span>
+                        <span>SpaCy</span>
+                        <span>SQL</span>
+                        <span>Dash</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="folder-icon"><i class="fa-regular fa-folder"></i></div>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                    <h3 class="project-title">Leaf Disease Detection</h3>
+                    <p class="project-desc">
+                        Scalable deep learning model achieving 96% accuracy on agricultural datasets. Deployed via a lightweight Flask backend.
+                    </p>
+                    <div class="project-tech mono">
+                        <span>PyTorch</span>
+                        <span>CV</span>
+                        <span>Deep Learning</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2 class="section-title"><span class="highlight mono">04.</span> Research Publications</h2>
+            
+            <div class="pub-list">
+                <a href="https://ieeexplore.ieee.org/document/11132200" style="text-decoration:none; color:inherit;">
+                    <div class="pub-item">
+                        <div class="pub-icon"><i class="fa-solid fa-file-waveform"></i></div>
+                        <div class="pub-content">
+                            <h4>GNN – Enhanced Drug Interaction Detection</h4>
+                            <p>Integrated Graph Neural Networks with Sentiment Analysis to model drug relationships from FDA data (AUC 0.981).</p>
+                            <span class="pub-meta mono">IEEE Xplore '25</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://ieeexplore.ieee.org/document/11039595" style="text-decoration:none; color:inherit;">
+                    <div class="pub-item">
+                        <div class="pub-icon"><i class="fa-solid fa-microscope"></i></div>
+                        <div class="pub-content">
+                            <h4>Super-Resolved Monkeypox Image Dataset</h4>
+                            <p>Leveraged GANs (Real-ESRGAN) to generate a high-quality dataset of 3,165 images, enabling robust detection.</p>
+                            <span class="pub-meta mono">IEEE ISPCC '25</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="pub-item">
+                    <div class="pub-icon"><i class="fa-solid fa-water"></i></div>
+                    <div class="pub-content">
+                        <h4>Hybrid ARIMA-LSTM for Ocean Forecasting</h4>
+                        <p>Developed a hybrid stacked ensemble framework using IoT sensors to predict ocean acidification.</p>
+                        <span class="pub-meta mono">IJLRET '25</span>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <div class="card-header"><i class="fa-solid fa-database"></i></div>
-                <div class="card-title">Twitter NLP Benchmarking</div>
-                <p class="card-desc">Comprehensive sentiment analysis pipeline using RoBERTa and DistilBERT. Included extensive data curation (NER, POS tagging) and SQL integration.</p>
-                <div class="tech-list">
-                    <span>Transformers</span>
-                    <span>SpaCy</span>
-                    <span>SQL</span>
-                    <span>Dash</span>
-                </div>
+        <section id="contact" class="contact-section">
+            <p class="mono highlight">05. What's Next?</p>
+            <h2 style="font-size: 3rem; margin-bottom: 1rem;">Get In Touch</h2>
+            <p style="max-width: 500px; margin: 0 auto 2rem auto; color: var(--text-secondary);">
+                I am currently open to new research opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <a href="mailto:abisek971@gmail.com" class="btn-primary mono" style="padding: 1.2rem 3rem;">Say Hello</a>
+
+            <div class="social-icons">
+                <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/abisekkamthan" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="mailto:abisek971@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             </div>
+        </section>
 
-            <div class="card">
-                <div class="card-header"><i class="fa-solid fa-leaf"></i></div>
-                <div class="card-title">Leaf Disease Detection</div>
-                <p class="card-desc">Scalable detection model using PyTorch state-of-the-art architectures. Achieved 96% accuracy with a Flask real-time backend.</p>
-                <div class="tech-list">
-                    <span>PyTorch</span>
-                    <span>Deep Learning</span>
-                    <span>Computer Vision</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer>
-        <p>Designed & Built by Abisek Kamthan R S</p>
-        <div class="social-links">
-            <a href="https://github.com/Codesaur1618" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/abisekkamthan" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:abisek971@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-        </div>
+    </main>
+    
+    <footer style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.8rem;" class="mono">
+        <p>Designed & Built by Abisekkamthan</p>
     </footer>
 
+    <script>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Neural Network Background Animation
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(100, 255, 218, 0.3)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw connections
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${0.1 - distance/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animate();
+    </script>
 </body>
 </html>
